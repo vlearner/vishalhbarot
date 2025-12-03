@@ -24,7 +24,6 @@ A simple, secure personal website showcasing information about me and my certifi
 This site implements several security measures:
 - Content Security Policy (CSP)
 - X-Content-Type-Options
-- X-Frame-Options
 - Strict referrer policy
 
 ## Setup

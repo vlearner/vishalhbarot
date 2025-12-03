@@ -167,6 +167,13 @@ section {
     margin-top: 0.5rem;
 }
 
+.placeholder-text {
+    text-align: center;
+    color: #666;
+    font-style: italic;
+    padding: 2rem;
+}
+
 /* Footer */
 footer {
     background-color: var(--primary-color);
