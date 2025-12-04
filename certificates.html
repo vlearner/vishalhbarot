@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Certificates - Vishal Barot</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            background-color: #f5f5f5;
+            color: #333;
+            line-height: 1.6;
+            padding: 40px 20px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        h1 {
+            text-align: center;
+            margin-bottom: 40px;
+            font-size: 2.5rem;
+            color: #1a1a1a;
+        }
+
+        .certificates-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 24px;
+        }
+
+        .certificate-block {
+            background: #fff;
+            border-radius: 12px;
+            padding: 24px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+            text-decoration: none;
+            color: inherit;
+            display: block;
+        }
+
+        .certificate-block:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+        }
+
+        .course-name {
+            font-size: 1.4rem;
+            font-weight: 600;
+            color: #1a1a1a;
+            margin-bottom: 12px;
+            line-height: 1.3;
+        }
+
+        .certificate-meta {
+            font-size: 0.95rem;
+            color: #666;
+        }
+
+        .issuer {
+            font-weight: 500;
+            color: #0066cc;
+        }
+
+        .date {
+            margin-top: 4px;
+        }
+
+        @media (max-width: 600px) {
+            h1 {
+                font-size: 1.8rem;
+            }
+
+            .course-name {
+                font-size: 1.2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Certificates</h1>
+        <div class="certificates-grid">
+            <a href="https://www.coursera.org/account/accomplishments/verify/3HYRT0Z9M2IG" target="_blank" rel="noopener noreferrer" class="certificate-block">
+                <div class="course-name">Coursera Certificate</div>
+                <div class="certificate-meta">
+                    <div class="issuer">Coursera</div>
+                    <div class="date">2024</div>
+                </div>
+            </a>
+
+            <a href="https://www.coursera.org/account/accomplishments/verify/JNMNBNATKTZT" target="_blank" rel="noopener noreferrer" class="certificate-block">
+                <div class="course-name">Coursera Certificate</div>
+                <div class="certificate-meta">
+                    <div class="issuer">Coursera</div>
+                    <div class="date">2024</div>
+                </div>
+            </a>
+
+            <a href="https://www.coursera.org/account/accomplishments/verify/UF21UX58EOPY" target="_blank" rel="noopener noreferrer" class="certificate-block">
+                <div class="course-name">Coursera Certificate</div>
+                <div class="certificate-meta">
+                    <div class="issuer">Coursera</div>
+                    <div class="date">2024</div>
+                </div>
+            </a>
+
+            <a href="https://www.coursera.org/account/accomplishments/verify/N3XC5AOQH5GM" target="_blank" rel="noopener noreferrer" class="certificate-block">
+                <div class="course-name">Coursera Certificate</div>
+                <div class="certificate-meta">
+                    <div class="issuer">Coursera</div>
+                    <div class="date">2024</div>
+                </div>
+            </a>
+
+            <a href="https://www.credly.com/badges/24784599-b1dd-46c0-9143-edee6d9f8580" target="_blank" rel="noopener noreferrer" class="certificate-block">
+                <div class="course-name">Credly Badge</div>
+                <div class="certificate-meta">
+                    <div class="issuer">Credly</div>
+                    <div class="date">2024</div>
+                </div>
+            </a>
+        </div>
+    </div>
+</body>
+</html>
