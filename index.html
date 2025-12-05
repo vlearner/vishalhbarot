@@ -5,6 +5,22 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Vishal Barot - 2025 Website</title>
     <style>
+        :root {
+            --bg-gradient-start: #667eea;
+            --bg-gradient-end: #764ba2;
+            --text-color: #fff;
+            --text-opacity: 0.9;
+            --social-bg: #fff;
+            --social-shadow: rgba(0, 0, 0, 0.2);
+        }
+        [data-theme="dark"] {
+            --bg-gradient-start: #1a1a2e;
+            --bg-gradient-end: #16213e;
+            --text-color: #e0e0e0;
+            --text-opacity: 0.85;
+            --social-bg: #2d2d44;
+            --social-shadow: rgba(0, 0, 0, 0.4);
+        }
         * {
             margin: 0;
             padding: 0;
@@ -12,12 +28,13 @@
         }
         body {
             font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background: linear-gradient(135deg, var(--bg-gradient-start) 0%, var(--bg-gradient-end) 100%);
             min-height: 100vh;
             display: flex;
             justify-content: center;
             align-items: center;
-            color: #fff;
+            color: var(--text-color);
+            transition: background 0.4s ease, color 0.4s ease;
         }
         .container {
             text-align: center;
@@ -26,11 +43,13 @@
         h1 {
             font-size: 3rem;
             margin-bottom: 1rem;
+            transition: color 0.4s ease;
         }
         p {
             font-size: 1.25rem;
-            opacity: 0.9;
+            opacity: var(--text-opacity);
             margin-bottom: 2rem;
+            transition: opacity 0.4s ease;
         }
         .social-links {
             display: flex;
@@ -44,20 +63,118 @@
             width: 50px;
             height: 50px;
             border-radius: 50%;
-            background-color: #fff;
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            background-color: var(--social-bg);
+            transition: transform 0.3s ease, box-shadow 0.3s ease, background-color 0.4s ease;
         }
         .social-links a:hover {
             transform: translateY(-3px);
-            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+            box-shadow: 0 10px 20px var(--social-shadow);
         }
         .social-links svg {
             width: 28px;
             height: 28px;
         }
+        /* Navigation bar */
+        .navbar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            display: flex;
+            justify-content: flex-end;
+            align-items: center;
+            padding: 15px 20px;
+            gap: 20px;
+            z-index: 1000;
+        }
+        .nav-links {
+            display: flex;
+            gap: 20px;
+            align-items: center;
+        }
+        .nav-links a {
+            color: var(--text-color);
+            text-decoration: none;
+            font-size: 1rem;
+            font-weight: 500;
+            opacity: 0.9;
+            transition: opacity 0.3s ease, color 0.4s ease;
+        }
+        .nav-links a:hover {
+            opacity: 1;
+        }
+        /* Theme toggle button */
+        .theme-toggle {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            border: none;
+            background-color: var(--social-bg);
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 4px 15px var(--social-shadow);
+            transition: transform 0.3s ease, box-shadow 0.3s ease, background-color 0.4s ease;
+        }
+        .theme-toggle:hover {
+            transform: scale(1.1);
+            box-shadow: 0 6px 20px var(--social-shadow);
+        }
+        .theme-toggle:focus {
+            outline: 3px solid var(--text-color);
+            outline-offset: 3px;
+        }
+        .theme-toggle:focus:not(:focus-visible) {
+            outline: none;
+        }
+        .theme-toggle:focus-visible {
+            outline: 3px solid var(--text-color);
+            outline-offset: 3px;
+        }
+        .theme-toggle svg {
+            width: 22px;
+            height: 22px;
+            transition: transform 0.4s ease, opacity 0.3s ease;
+        }
+        .theme-toggle .sun-icon {
+            display: none;
+            color: #f39c12;
+        }
+        .theme-toggle .moon-icon {
+            display: block;
+            color: #667eea;
+        }
+        [data-theme="dark"] .theme-toggle .sun-icon {
+            display: block;
+        }
+        [data-theme="dark"] .theme-toggle .moon-icon {
+            display: none;
+        }
+        .theme-toggle:active svg {
+            transform: rotate(30deg);
+        }
     </style>
 </head>
 <body>
+    <!-- Navigation Bar -->
+    <nav class="navbar">
+        <div class="nav-links">
+            <a href="index.html">About</a>
+            <a href="certificates.html">Certificates</a>
+        </div>
+        <button class="theme-toggle" id="theme-toggle" aria-label="Toggle dark mode" title="Toggle dark/light mode">
+            <!-- Moon icon - shown in light mode (click to go dark) -->
+            <svg class="moon-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                <path d="M21.752 15.002A9.718 9.718 0 0118 15.75c-5.385 0-9.75-4.365-9.75-9.75 0-1.33.266-2.597.748-3.752A9.753 9.753 0 003 11.25C3 16.635 7.365 21 12.75 21a9.753 9.753 0 009.002-5.998z"/>
+            </svg>
+            <!-- Sun icon - shown in dark mode (click to go light) -->
+            <svg class="sun-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                <path d="M12 2.25a.75.75 0 01.75.75v2.25a.75.75 0 01-1.5 0V3a.75.75 0 01.75-.75zM7.5 12a4.5 4.5 0 119 0 4.5 4.5 0 01-9 0zM18.894 6.166a.75.75 0 00-1.06-1.06l-1.591 1.59a.75.75 0 101.06 1.061l1.591-1.59zM21.75 12a.75.75 0 01-.75.75h-2.25a.75.75 0 010-1.5H21a.75.75 0 01.75.75zM17.834 18.894a.75.75 0 001.06-1.06l-1.59-1.591a.75.75 0 10-1.061 1.06l1.59 1.591zM12 18a.75.75 0 01.75.75V21a.75.75 0 01-1.5 0v-2.25A.75.75 0 0112 18zM7.758 17.303a.75.75 0 00-1.061-1.06l-1.591 1.59a.75.75 0 001.06 1.061l1.591-1.59zM6 12a.75.75 0 01-.75.75H3a.75.75 0 010-1.5h2.25A.75.75 0 016 12zM6.697 7.757a.75.75 0 001.06-1.06l-1.59-1.591a.75.75 0 00-1.061 1.06l1.59 1.591z"/>
+            </svg>
+        </button>
+    </nav>
+    
     <div class="container">
         <h1>Welcome</h1>
         <p>Vishal Barot's 2025 Website</p>
@@ -70,5 +187,50 @@
             </a>
         </div>
     </div>
+
+    <script>
+        (function() {
+            const themeToggle = document.getElementById('theme-toggle');
+            const html = document.documentElement;
+            
+            // Check for saved theme preference or default to light
+            const savedTheme = localStorage.getItem('theme') || 'light';
+            if (savedTheme === 'dark') {
+                html.setAttribute('data-theme', 'dark');
+            }
+            
+            // Update aria-label based on current theme
+            function updateAriaLabel() {
+                const isDark = html.getAttribute('data-theme') === 'dark';
+                themeToggle.setAttribute('aria-label', isDark ? 'Switch to light mode' : 'Switch to dark mode');
+            }
+            
+            // Initialize aria-label
+            updateAriaLabel();
+            
+            // Toggle theme on button click
+            themeToggle.addEventListener('click', function() {
+                const isDark = html.getAttribute('data-theme') === 'dark';
+                
+                if (isDark) {
+                    html.removeAttribute('data-theme');
+                    localStorage.setItem('theme', 'light');
+                } else {
+                    html.setAttribute('data-theme', 'dark');
+                    localStorage.setItem('theme', 'dark');
+                }
+                
+                updateAriaLabel();
+            });
+            
+            // Handle keyboard accessibility
+            themeToggle.addEventListener('keydown', function(e) {
+                if (e.key === 'Enter' || e.key === ' ') {
+                    e.preventDefault();
+                    themeToggle.click();
+                }
+            });
+        })();
+    </script>
 </body>
 </html>
