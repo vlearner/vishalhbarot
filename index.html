@@ -186,8 +186,25 @@
             const themeToggle = document.getElementById('theme-toggle');
             const html = document.documentElement;
             
+            // Helper function to safely access localStorage
+            function getStoredTheme() {
+                try {
+                    return localStorage.getItem('theme');
+                } catch (e) {
+                    return null;
+                }
+            }
+            
+            function setStoredTheme(theme) {
+                try {
+                    localStorage.setItem('theme', theme);
+                } catch (e) {
+                    // localStorage not available, ignore
+                }
+            }
+            
             // Check for saved theme preference or default to light
-            const savedTheme = localStorage.getItem('theme') || 'light';
+            const savedTheme = getStoredTheme() || 'light';
             if (savedTheme === 'dark') {
                 html.setAttribute('data-theme', 'dark');
             }
@@ -207,10 +224,10 @@
                 
                 if (isDark) {
                     html.removeAttribute('data-theme');
-                    localStorage.setItem('theme', 'light');
+                    setStoredTheme('light');
                 } else {
                     html.setAttribute('data-theme', 'dark');
-                    localStorage.setItem('theme', 'dark');
+                    setStoredTheme('dark');
                 }
                 
                 updateAriaLabel();
