@@ -1,0 +1,613 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tours - Vishal Barot</title>
+    <style>
+        :root {
+            --text-color: #fff;
+            --card-bg: rgba(255, 255, 255, 0.95);
+            --card-text: #333;
+            --button-bg: rgba(139, 69, 19, 0.8);
+            --button-hover: rgba(139, 69, 19, 0.95);
+            --modal-bg: rgba(0, 0, 0, 0.8);
+            --modal-content: #fff;
+            --shadow: rgba(0, 0, 0, 0.3);
+            --lang-active: #d4af37;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            min-height: 100vh;
+            background: linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3)), 
+                        url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 800"><rect fill="%23D2691E" width="1200" height="800"/><path fill="%23CD853F" d="M400,200 L500,100 L600,200 L600,600 L400,600 Z"/><path fill="%23DEB887" d="M450,250 L500,200 L550,250 L550,600 L450,600 Z"/><rect fill="%238B4513" x="480" y="500" width="40" height="100"/><circle fill="%23F4A460" cx="600" cy="150" r="80"/><path fill="%23DAA520" d="M200,400 L800,400 L900,500 L100,500 Z"/><text x="100" y="100" font-family="serif" font-size="60" fill="%234A3728" opacity="0.3">LUXOR</text></svg>') center/cover;
+            background-attachment: fixed;
+            color: var(--text-color);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 80px 20px 40px;
+        }
+
+        /* Navigation bar */
+        .navbar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 20px;
+            background: rgba(0, 0, 0, 0.5);
+            backdrop-filter: blur(10px);
+            z-index: 1000;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 20px;
+            align-items: center;
+        }
+
+        .nav-links a {
+            color: var(--text-color);
+            text-decoration: none;
+            font-size: 1rem;
+            font-weight: 500;
+            opacity: 0.9;
+            transition: opacity 0.3s ease;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+        }
+
+        .nav-links a:hover {
+            opacity: 1;
+        }
+
+        /* Language switcher */
+        .language-switcher {
+            display: flex;
+            gap: 10px;
+        }
+
+        .lang-btn {
+            padding: 8px 16px;
+            border: 2px solid var(--text-color);
+            background: rgba(0, 0, 0, 0.3);
+            color: var(--text-color);
+            cursor: pointer;
+            border-radius: 6px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+        }
+
+        .lang-btn:hover {
+            background: rgba(255, 255, 255, 0.2);
+            transform: translateY(-2px);
+        }
+
+        .lang-btn.active {
+            background: var(--lang-active);
+            border-color: var(--lang-active);
+            color: #000;
+            text-shadow: none;
+        }
+
+        /* Main content */
+        .container {
+            text-align: center;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        h1 {
+            font-size: 3.5rem;
+            margin-bottom: 1rem;
+            text-shadow: 3px 3px 6px rgba(0, 0, 0, 0.7);
+            font-weight: 700;
+            letter-spacing: 2px;
+        }
+
+        .subtitle {
+            font-size: 1.3rem;
+            margin-bottom: 3rem;
+            opacity: 0.95;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);
+        }
+
+        /* Service buttons */
+        .services {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .service-btn {
+            width: 100%;
+            max-width: 400px;
+            padding: 20px 40px;
+            font-size: 1.3rem;
+            font-weight: 600;
+            background: var(--button-bg);
+            color: var(--text-color);
+            border: 3px solid rgba(212, 175, 55, 0.6);
+            border-radius: 12px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px var(--shadow);
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+        }
+
+        .service-btn:hover {
+            background: var(--button-hover);
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px var(--shadow);
+            border-color: var(--lang-active);
+        }
+
+        /* Modal */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: var(--modal-bg);
+            z-index: 2000;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .modal.active {
+            display: flex;
+        }
+
+        .modal-content {
+            background: var(--modal-content);
+            color: var(--card-text);
+            padding: 40px;
+            border-radius: 16px;
+            max-width: 600px;
+            width: 100%;
+            position: relative;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5);
+            max-height: 80vh;
+            overflow-y: auto;
+        }
+
+        .close-btn {
+            position: absolute;
+            top: 15px;
+            right: 20px;
+            font-size: 2rem;
+            font-weight: bold;
+            color: var(--card-text);
+            cursor: pointer;
+            border: none;
+            background: none;
+            transition: color 0.3s ease;
+        }
+
+        .close-btn:hover {
+            color: #999;
+        }
+
+        .modal-content h2 {
+            margin-bottom: 20px;
+            color: #8B4513;
+            font-size: 2rem;
+        }
+
+        .modal-content p {
+            line-height: 1.8;
+            margin-bottom: 15px;
+            font-size: 1.1rem;
+        }
+
+        .modal-content ul {
+            margin: 15px 0 15px 25px;
+            line-height: 1.8;
+        }
+
+        .modal-content li {
+            margin-bottom: 10px;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 2.5rem;
+            }
+
+            .subtitle {
+                font-size: 1.1rem;
+            }
+
+            .service-btn {
+                font-size: 1.1rem;
+                padding: 18px 30px;
+            }
+
+            .language-switcher {
+                flex-wrap: wrap;
+            }
+
+            .lang-btn {
+                font-size: 0.8rem;
+                padding: 6px 12px;
+            }
+
+            .navbar {
+                flex-direction: column;
+                gap: 10px;
+                padding: 10px;
+            }
+
+            .modal-content {
+                padding: 30px 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation Bar -->
+    <nav class="navbar">
+        <div class="nav-links">
+            <a href="index.html">About</a>
+            <a href="certificates.html">Certificates</a>
+            <a href="tours.html">Tours</a>
+        </div>
+        <div class="language-switcher">
+            <button class="lang-btn active" data-lang="en">English</button>
+            <button class="lang-btn" data-lang="ar">العربية</button>
+            <button class="lang-btn" data-lang="fr">Français</button>
+        </div>
+    </nav>
+
+    <div class="container">
+        <h1 data-translate="title">Discover Egypt</h1>
+        <p class="subtitle" data-translate="subtitle">Choose Your Perfect Tour Experience</p>
+        
+        <div class="services">
+            <button class="service-btn" data-tour="group">
+                <span data-translate="groupTours">Group Tours</span>
+            </button>
+            <button class="service-btn" data-tour="private">
+                <span data-translate="privateTours">Private Tours</span>
+            </button>
+            <button class="service-btn" data-tour="city">
+                <span data-translate="cityTours">City Tours</span>
+            </button>
+        </div>
+    </div>
+
+    <!-- Modals -->
+    <div id="groupModal" class="modal">
+        <div class="modal-content">
+            <button class="close-btn">&times;</button>
+            <h2 data-translate="groupToursTitle">Group Tours</h2>
+            <div data-translate="groupToursDesc">
+                <p>Join fellow travelers on an exciting journey through Egypt's most iconic destinations. Our group tours offer:</p>
+                <ul>
+                    <li>Expert multilingual tour guides</li>
+                    <li>Comfortable transportation with air conditioning</li>
+                    <li>Visit to the Pyramids of Giza and the Sphinx</li>
+                    <li>Explore the Valley of the Kings in Luxor</li>
+                    <li>Discover the temples of Karnak and Abu Simbel</li>
+                    <li>Nile River cruise experience</li>
+                    <li>Traditional Egyptian lunch included</li>
+                    <li>Small groups (max 15 people) for personalized attention</li>
+                </ul>
+                <p>Perfect for solo travelers, couples, and families looking to share the adventure with others while keeping costs affordable.</p>
+            </div>
+        </div>
+    </div>
+
+    <div id="privateModal" class="modal">
+        <div class="modal-content">
+            <button class="close-btn">&times;</button>
+            <h2 data-translate="privateToursTitle">Private Tours</h2>
+            <div data-translate="privateToursDesc">
+                <p>Experience Egypt at your own pace with our exclusive private tours. Enjoy:</p>
+                <ul>
+                    <li>Dedicated personal guide just for your group</li>
+                    <li>Flexible itinerary customized to your interests</li>
+                    <li>Luxury private transportation</li>
+                    <li>VIP access to historical sites</li>
+                    <li>Photography sessions at the best spots</li>
+                    <li>Exclusive visits to hidden gems and local markets</li>
+                    <li>Fine dining at premium restaurants</li>
+                    <li>Hotel pickup and drop-off included</li>
+                    <li>Extended hours available upon request</li>
+                </ul>
+                <p>Ideal for families, special occasions, or anyone seeking a more intimate and luxurious Egyptian adventure.</p>
+            </div>
+        </div>
+    </div>
+
+    <div id="cityModal" class="modal">
+        <div class="modal-content">
+            <button class="close-btn">&times;</button>
+            <h2 data-translate="cityToursTitle">City Tours</h2>
+            <div data-translate="cityToursDesc">
+                <p>Immerse yourself in the vibrant culture of Egypt's magnificent cities. Our city tours include:</p>
+                <ul>
+                    <li>Walking tours through historic Cairo</li>
+                    <li>Visit the Egyptian Museum and its treasures</li>
+                    <li>Explore the bustling Khan el-Khalili bazaar</li>
+                    <li>Discover Coptic Cairo and Islamic architecture</li>
+                    <li>Experience Alexandria's coastal charm</li>
+                    <li>Luxor's ancient temples and modern markets</li>
+                    <li>Traditional coffee house experience</li>
+                    <li>Street food tasting tours</li>
+                    <li>Local artisan workshops and galleries</li>
+                </ul>
+                <p>Perfect for culture enthusiasts who want to experience authentic Egyptian daily life and urban exploration.</p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Language translations
+        const translations = {
+            en: {
+                title: "Discover Egypt",
+                subtitle: "Choose Your Perfect Tour Experience",
+                groupTours: "Group Tours",
+                privateTours: "Private Tours",
+                cityTours: "City Tours",
+                groupToursTitle: "Group Tours",
+                groupToursDesc: `
+                    <p>Join fellow travelers on an exciting journey through Egypt's most iconic destinations. Our group tours offer:</p>
+                    <ul>
+                        <li>Expert multilingual tour guides</li>
+                        <li>Comfortable transportation with air conditioning</li>
+                        <li>Visit to the Pyramids of Giza and the Sphinx</li>
+                        <li>Explore the Valley of the Kings in Luxor</li>
+                        <li>Discover the temples of Karnak and Abu Simbel</li>
+                        <li>Nile River cruise experience</li>
+                        <li>Traditional Egyptian lunch included</li>
+                        <li>Small groups (max 15 people) for personalized attention</li>
+                    </ul>
+                    <p>Perfect for solo travelers, couples, and families looking to share the adventure with others while keeping costs affordable.</p>
+                `,
+                privateToursTitle: "Private Tours",
+                privateToursDesc: `
+                    <p>Experience Egypt at your own pace with our exclusive private tours. Enjoy:</p>
+                    <ul>
+                        <li>Dedicated personal guide just for your group</li>
+                        <li>Flexible itinerary customized to your interests</li>
+                        <li>Luxury private transportation</li>
+                        <li>VIP access to historical sites</li>
+                        <li>Photography sessions at the best spots</li>
+                        <li>Exclusive visits to hidden gems and local markets</li>
+                        <li>Fine dining at premium restaurants</li>
+                        <li>Hotel pickup and drop-off included</li>
+                        <li>Extended hours available upon request</li>
+                    </ul>
+                    <p>Ideal for families, special occasions, or anyone seeking a more intimate and luxurious Egyptian adventure.</p>
+                `,
+                cityToursTitle: "City Tours",
+                cityToursDesc: `
+                    <p>Immerse yourself in the vibrant culture of Egypt's magnificent cities. Our city tours include:</p>
+                    <ul>
+                        <li>Walking tours through historic Cairo</li>
+                        <li>Visit the Egyptian Museum and its treasures</li>
+                        <li>Explore the bustling Khan el-Khalili bazaar</li>
+                        <li>Discover Coptic Cairo and Islamic architecture</li>
+                        <li>Experience Alexandria's coastal charm</li>
+                        <li>Luxor's ancient temples and modern markets</li>
+                        <li>Traditional coffee house experience</li>
+                        <li>Street food tasting tours</li>
+                        <li>Local artisan workshops and galleries</li>
+                    </ul>
+                    <p>Perfect for culture enthusiasts who want to experience authentic Egyptian daily life and urban exploration.</p>
+                `
+            },
+            ar: {
+                title: "اكتشف مصر",
+                subtitle: "اختر تجربة الجولة المثالية",
+                groupTours: "جولات جماعية",
+                privateTours: "جولات خاصة",
+                cityTours: "جولات المدينة",
+                groupToursTitle: "جولات جماعية",
+                groupToursDesc: `
+                    <p>انضم إلى المسافرين في رحلة مثيرة عبر أشهر الوجهات المصرية. تقدم جولاتنا الجماعية:</p>
+                    <ul>
+                        <li>مرشدون سياحيون خبراء متعددو اللغات</li>
+                        <li>وسائل نقل مريحة مع تكييف هواء</li>
+                        <li>زيارة أهرامات الجيزة وأبو الهول</li>
+                        <li>استكشاف وادي الملوك في الأقصر</li>
+                        <li>اكتشف معابد الكرنك وأبو سمبل</li>
+                        <li>تجربة رحلة نيلية</li>
+                        <li>غداء مصري تقليدي مشمول</li>
+                        <li>مجموعات صغيرة (حد أقصى 15 شخصاً) لاهتمام شخصي</li>
+                    </ul>
+                    <p>مثالي للمسافرين الفرديين والأزواج والعائلات الذين يتطلعون لمشاركة المغامرة مع الآخرين مع الحفاظ على التكاليف معقولة.</p>
+                `,
+                privateToursTitle: "جولات خاصة",
+                privateToursDesc: `
+                    <p>اختبر مصر بالسرعة التي تناسبك مع جولاتنا الخاصة الحصرية. استمتع بـ:</p>
+                    <ul>
+                        <li>مرشد شخصي مخصص لمجموعتك فقط</li>
+                        <li>مسار مرن مخصص لاهتماماتك</li>
+                        <li>وسائل نقل خاصة فاخرة</li>
+                        <li>دخول VIP إلى المواقع التاريخية</li>
+                        <li>جلسات تصوير في أفضل الأماكن</li>
+                        <li>زيارات حصرية للجواهر المخفية والأسواق المحلية</li>
+                        <li>تناول طعام راقي في مطاعم فاخرة</li>
+                        <li>خدمة التوصيل من وإلى الفندق مشمولة</li>
+                        <li>ساعات ممتدة متاحة عند الطلب</li>
+                    </ul>
+                    <p>مثالي للعائلات والمناسبات الخاصة أو أي شخص يبحث عن مغامرة مصرية أكثر حميمية وفخامة.</p>
+                `,
+                cityToursTitle: "جولات المدينة",
+                cityToursDesc: `
+                    <p>انغمس في الثقافة النابضة بالحياة لمدن مصر الرائعة. تشمل جولاتنا في المدينة:</p>
+                    <ul>
+                        <li>جولات سير عبر القاهرة التاريخية</li>
+                        <li>زيارة المتحف المصري وكنوزه</li>
+                        <li>استكشف بازار خان الخليلي الصاخب</li>
+                        <li>اكتشف القاهرة القبطية والعمارة الإسلامية</li>
+                        <li>اختبر سحر الإسكندرية الساحلي</li>
+                        <li>معابد الأقصر القديمة والأسواق الحديثة</li>
+                        <li>تجربة المقهى التقليدي</li>
+                        <li>جولات تذوق طعام الشارع</li>
+                        <li>ورش عمل الحرفيين المحليين والمعارض</li>
+                    </ul>
+                    <p>مثالي لعشاق الثقافة الذين يرغبون في تجربة الحياة اليومية المصرية الأصيلة والاستكشاف الحضري.</p>
+                `
+            },
+            fr: {
+                title: "Découvrez l'Égypte",
+                subtitle: "Choisissez Votre Expérience de Voyage Parfaite",
+                groupTours: "Circuits en Groupe",
+                privateTours: "Circuits Privés",
+                cityTours: "Circuits en Ville",
+                groupToursTitle: "Circuits en Groupe",
+                groupToursDesc: `
+                    <p>Rejoignez d'autres voyageurs pour un voyage passionnant à travers les destinations les plus emblématiques d'Égypte. Nos circuits en groupe offrent:</p>
+                    <ul>
+                        <li>Guides touristiques experts multilingues</li>
+                        <li>Transport confortable avec climatisation</li>
+                        <li>Visite des pyramides de Gizeh et du Sphinx</li>
+                        <li>Exploration de la Vallée des Rois à Louxor</li>
+                        <li>Découverte des temples de Karnak et d'Abou Simbel</li>
+                        <li>Expérience de croisière sur le Nil</li>
+                        <li>Déjeuner égyptien traditionnel inclus</li>
+                        <li>Petits groupes (max 15 personnes) pour une attention personnalisée</li>
+                    </ul>
+                    <p>Parfait pour les voyageurs solo, les couples et les familles qui souhaitent partager l'aventure avec d'autres tout en gardant des coûts abordables.</p>
+                `,
+                privateToursTitle: "Circuits Privés",
+                privateToursDesc: `
+                    <p>Découvrez l'Égypte à votre rythme avec nos circuits privés exclusifs. Profitez de:</p>
+                    <ul>
+                        <li>Guide personnel dédié uniquement pour votre groupe</li>
+                        <li>Itinéraire flexible personnalisé selon vos intérêts</li>
+                        <li>Transport privé de luxe</li>
+                        <li>Accès VIP aux sites historiques</li>
+                        <li>Séances photo aux meilleurs endroits</li>
+                        <li>Visites exclusives de joyaux cachés et marchés locaux</li>
+                        <li>Restauration gastronomique dans des restaurants haut de gamme</li>
+                        <li>Prise en charge et retour à l'hôtel inclus</li>
+                        <li>Heures prolongées disponibles sur demande</li>
+                    </ul>
+                    <p>Idéal pour les familles, les occasions spéciales ou toute personne recherchant une aventure égyptienne plus intime et luxueuse.</p>
+                `,
+                cityToursTitle: "Circuits en Ville",
+                cityToursDesc: `
+                    <p>Immergez-vous dans la culture vibrante des magnifiques villes d'Égypte. Nos circuits en ville comprennent:</p>
+                    <ul>
+                        <li>Visites à pied du Caire historique</li>
+                        <li>Visite du Musée égyptien et de ses trésors</li>
+                        <li>Exploration du bazar animé Khan el-Khalili</li>
+                        <li>Découverte du Caire copte et de l'architecture islamique</li>
+                        <li>Expérience du charme côtier d'Alexandrie</li>
+                        <li>Temples anciens de Louxor et marchés modernes</li>
+                        <li>Expérience traditionnelle du café</li>
+                        <li>Circuits de dégustation de street food</li>
+                        <li>Ateliers d'artisans locaux et galeries</li>
+                    </ul>
+                    <p>Parfait pour les passionnés de culture qui veulent vivre la vie quotidienne égyptienne authentique et l'exploration urbaine.</p>
+                `
+            }
+        };
+
+        // Language switching
+        let currentLang = 'en';
+
+        function switchLanguage(lang) {
+            currentLang = lang;
+            
+            // Update active button
+            document.querySelectorAll('.lang-btn').forEach(btn => {
+                btn.classList.remove('active');
+                if (btn.dataset.lang === lang) {
+                    btn.classList.add('active');
+                }
+            });
+
+            // Update all translatable elements
+            document.querySelectorAll('[data-translate]').forEach(elem => {
+                const key = elem.dataset.translate;
+                if (translations[lang][key]) {
+                    if (key.includes('Desc')) {
+                        elem.innerHTML = translations[lang][key];
+                    } else {
+                        elem.textContent = translations[lang][key];
+                    }
+                }
+            });
+
+            // Update HTML lang attribute
+            document.documentElement.lang = lang === 'ar' ? 'ar' : lang === 'fr' ? 'fr' : 'en';
+        }
+
+        // Language button event listeners
+        document.querySelectorAll('.lang-btn').forEach(btn => {
+            btn.addEventListener('click', () => {
+                switchLanguage(btn.dataset.lang);
+            });
+        });
+
+        // Modal functionality
+        const modals = {
+            group: document.getElementById('groupModal'),
+            private: document.getElementById('privateModal'),
+            city: document.getElementById('cityModal')
+        };
+
+        // Open modal
+        document.querySelectorAll('.service-btn').forEach(btn => {
+            btn.addEventListener('click', () => {
+                const tourType = btn.dataset.tour;
+                if (modals[tourType]) {
+                    modals[tourType].classList.add('active');
+                }
+            });
+        });
+
+        // Close modal
+        document.querySelectorAll('.close-btn').forEach(btn => {
+            btn.addEventListener('click', () => {
+                Object.values(modals).forEach(modal => {
+                    modal.classList.remove('active');
+                });
+            });
+        });
+
+        // Close modal when clicking outside
+        Object.values(modals).forEach(modal => {
+            modal.addEventListener('click', (e) => {
+                if (e.target === modal) {
+                    modal.classList.remove('active');
+                }
+            });
+        });
+
+        // Close modal with Escape key
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') {
+                Object.values(modals).forEach(modal => {
+                    modal.classList.remove('active');
+                });
+            }
+        });
+    </script>
+</body>
+</html>
