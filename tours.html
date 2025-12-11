@@ -301,18 +301,7 @@
             <button class="close-btn">&times;</button>
             <h2 data-translate="groupToursTitle">Group Tours</h2>
             <div data-translate="groupToursDesc">
-                <p>Join fellow travelers on an exciting journey through Egypt's most iconic destinations. Our group tours offer:</p>
-                <ul>
-                    <li>Expert multilingual tour guides</li>
-                    <li>Comfortable transportation with air conditioning</li>
-                    <li>Visit to the Pyramids of Giza and the Sphinx</li>
-                    <li>Explore the Valley of the Kings in Luxor</li>
-                    <li>Discover the temples of Karnak and Abu Simbel</li>
-                    <li>Nile River cruise experience</li>
-                    <li>Traditional Egyptian lunch included</li>
-                    <li>Small groups (max 15 people) for personalized attention</li>
-                </ul>
-                <p>Perfect for solo travelers, couples, and families looking to share the adventure with others while keeping costs affordable.</p>
+                <!-- Content will be populated by JavaScript -->
             </div>
         </div>
     </div>
@@ -322,19 +311,7 @@
             <button class="close-btn">&times;</button>
             <h2 data-translate="privateToursTitle">Private Tours</h2>
             <div data-translate="privateToursDesc">
-                <p>Experience Egypt at your own pace with our exclusive private tours. Enjoy:</p>
-                <ul>
-                    <li>Dedicated personal guide just for your group</li>
-                    <li>Flexible itinerary customized to your interests</li>
-                    <li>Luxury private transportation</li>
-                    <li>VIP access to historical sites</li>
-                    <li>Photography sessions at the best spots</li>
-                    <li>Exclusive visits to hidden gems and local markets</li>
-                    <li>Fine dining at premium restaurants</li>
-                    <li>Hotel pickup and drop-off included</li>
-                    <li>Extended hours available upon request</li>
-                </ul>
-                <p>Ideal for families, special occasions, or anyone seeking a more intimate and luxurious Egyptian adventure.</p>
+                <!-- Content will be populated by JavaScript -->
             </div>
         </div>
     </div>
@@ -344,19 +321,7 @@
             <button class="close-btn">&times;</button>
             <h2 data-translate="cityToursTitle">City Tours</h2>
             <div data-translate="cityToursDesc">
-                <p>Immerse yourself in the vibrant culture of Egypt's magnificent cities. Our city tours include:</p>
-                <ul>
-                    <li>Walking tours through historic Cairo</li>
-                    <li>Visit the Egyptian Museum and its treasures</li>
-                    <li>Explore the bustling Khan el-Khalili bazaar</li>
-                    <li>Discover Coptic Cairo and Islamic architecture</li>
-                    <li>Experience Alexandria's coastal charm</li>
-                    <li>Luxor's ancient temples and modern markets</li>
-                    <li>Traditional coffee house experience</li>
-                    <li>Street food tasting tours</li>
-                    <li>Local artisan workshops and galleries</li>
-                </ul>
-                <p>Perfect for culture enthusiasts who want to experience authentic Egyptian daily life and urban exploration.</p>
+                <!-- Content will be populated by JavaScript -->
             </div>
         </div>
     </div>
@@ -555,8 +520,11 @@
             });
 
             // Update HTML lang attribute
-            document.documentElement.lang = lang === 'ar' ? 'ar' : lang === 'fr' ? 'fr' : 'en';
+            document.documentElement.lang = lang;
         }
+
+        // Initialize with English on page load
+        switchLanguage('en');
 
         // Language button event listeners
         document.querySelectorAll('.lang-btn').forEach(btn => {
